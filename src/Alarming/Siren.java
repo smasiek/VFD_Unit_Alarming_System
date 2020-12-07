@@ -10,5 +10,8 @@ public class Siren {
     public void setSiren(boolean turnedOn) {
         this.turnedOn = turnedOn;
     }
+    public void buzz(){
+        System.out.println("Bzzzzzzzzzzzzzzzzzzzzzzzzz");
+    }
 
 }

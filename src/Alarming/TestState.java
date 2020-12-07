@@ -9,7 +9,7 @@ public class TestState implements UnitState {
     }
 
     @Override
-    public void setTerminalDTG53(boolean terminalState) {
+    public void setTerminal(boolean terminalState) {
         vfdUnit.getDTG53().setArmed(terminalState);
     }
 

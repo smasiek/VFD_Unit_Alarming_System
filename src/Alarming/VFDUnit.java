@@ -1,6 +1,11 @@
 package Alarming;
 
+import Alarming.Features.ArmableTerminal;
+import Alarming.Features.Buzz;
+import Alarming.Features.DiodesBlinks;
+import Alarming.Features.SendsSMS;
 import Firefighters.Firefighter;
+import com.sun.nio.file.SensitivityWatchEventModifier;
 
 import java.util.ArrayList;
 
@@ -26,6 +31,15 @@ public class VFDUnit implements IVFDUnit, Observer {
     UnitState test;
 
     UnitState unitState;
+
+    //Features
+
+    ArmableTerminal armableTerminal;
+    Buzz buzz;
+    DiodesBlinks diodesBlinks;
+    SendsSMS sendsSMS;
+
+
 
 
     public VFDUnit(String unitName, String testCode, String alarmCode, DistrictCommandantUnit districtCommandantUnit) {
@@ -149,5 +163,38 @@ public class VFDUnit implements IVFDUnit, Observer {
 
     public Siren getSiren() {
         return siren;
+    }
+
+
+    public ArmableTerminal getArmableTerminal() {
+        return armableTerminal;
+    }
+
+    public void setArmableTerminal(ArmableTerminal armableTerminal) {
+        this.armableTerminal = armableTerminal;
+    }
+
+    public Buzz getBuzz() {
+        return buzz;
+    }
+
+    public void setBuzz(Buzz buzz) {
+        this.buzz = buzz;
+    }
+
+    public DiodesBlinks getDiodesBlinks() {
+        return diodesBlinks;
+    }
+
+    public void setDiodesBlinks(DiodesBlinks diodesBlinks) {
+        this.diodesBlinks = diodesBlinks;
+    }
+
+    public SendsSMS getSendsSMS() {
+        return sendsSMS;
+    }
+
+    public void setSendsSMS(SendsSMS sendsSMS) {
+        this.sendsSMS = sendsSMS;
     }
 }

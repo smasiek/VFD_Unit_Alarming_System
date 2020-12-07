@@ -9,7 +9,7 @@ public class OkState implements UnitState {
     }
 
     @Override
-    public void setTerminalDTG53(boolean terminalState) {
+    public void setTerminal(boolean terminalState) {
         System.out.println("Terminal nieuzbrojony, używanie niemożliwe");
     }
 
