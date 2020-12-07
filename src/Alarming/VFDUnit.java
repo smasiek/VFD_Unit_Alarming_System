@@ -1,24 +1,71 @@
 package Alarming;
 
+import Firefighters.Firefighter;
+
+import java.util.ArrayList;
+
 public class VFDUnit implements IVFDUnit, Observer {
 
     Subject districtCommandant;
 
     DSP15 dsp15 = new DSP15();
     DSP50 dsp50 = new DSP50();
+    DTG53 dtg53 = new DTG53();
 
+    Siren siren =new Siren();
+
+    ArrayList<Firefighter> firefighters=new ArrayList<>();
 
     String unitName;
     String testCode;
     String alarmCode;
+
+    //States
+    UnitState ok;
+    UnitState alarmed;
+    UnitState test;
+
+    UnitState unitState;
+
 
     public VFDUnit(String unitName, String testCode, String alarmCode, DistrictCommandantUnit districtCommandantUnit) {
         this.unitName = unitName;
         this.testCode = testCode;
         this.alarmCode = alarmCode;
         this.districtCommandant= districtCommandantUnit;
+
+        ok=new OkState(this);
+        alarmed=new AlarmState(this);
+        test=new TestState(this);
+
+        unitState=ok;
     }
 
+    public void addFirefighter(Firefighter firefighter){
+        firefighters.add(firefighter);
+    }
+
+    private void setUnitState(UnitState unitState){
+        this.unitState=unitState;
+    }
+
+    public void setTerminalDTG53(boolean dtg53State){
+        dtg53.setArmed(dtg53State);
+    }
+
+    public void sendSMS(String sms) {
+        dtg53.sendSms(firefighters,sms);
+    }
+
+    public void alarmSiren(boolean setSiren){
+        siren.setSiren(setSiren);
+    }
+
+    public void diodeState(){
+        System.out.println("|   OK   |  TEST  |  ALARM  |");
+        System.out.println("|--------|--------|---------|");
+        System.out.println("|  [><]  |  [  ]  |   [  ]  |");
+    }
 
     public String getUnitName() {
         return unitName;
@@ -74,6 +121,17 @@ public class VFDUnit implements IVFDUnit, Observer {
         this.alarmCode = alarmCode;
     }
 
+    public UnitState getOk() {
+        return ok;
+    }
+
+    public UnitState getAlarmed() {
+        return alarmed;
+    }
+
+    public UnitState getTest() {
+        return test;
+    }
 
     @Override
     public void notify(ResponseCode responseCode) {
@@ -81,4 +139,15 @@ public class VFDUnit implements IVFDUnit, Observer {
         //return ResponseCode.ERROR;
     }
 
+    public DTG53 getDTG53() {
+        return this.dtg53;
+    }
+
+    public ArrayList<Firefighter> getFirefighters(){
+        return firefighters;
+    }
+
+    public Siren getSiren() {
+        return siren;
+    }
 }

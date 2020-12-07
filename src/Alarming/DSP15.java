@@ -19,6 +19,7 @@ public class DSP15 {
     }
 
     public void respond(Subject vfdUnit, ResponseCode responseCode){
+        //TODO JEDNAK DAC TO DO DSP50 bo to dsp50 odpowiada za wyslanie sygnalu zwrotnego jesli uda sie uzbroic terminale i wlaczyc syrene
         StringBuilder CCIR_CODE=new StringBuilder();
         CCIR_CODE.append(vfdUnit.getUnitName());
         CCIR_CODE.append(";");

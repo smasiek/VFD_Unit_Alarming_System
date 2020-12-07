@@ -14,6 +14,7 @@ public class DSP50 {
     }
 
     public ResponseCode receiveResponse(String response){
+
         String[]splittedAlarm=response.split(";");
 
         switch (splittedAlarm[1]) {
