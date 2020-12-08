@@ -1,17 +1,18 @@
 package Alarming.Features;
 
-import Alarming.DTG53;
+import Firefighters.Firefighter;
 
-public class TerminalUnarmed implements ArmableTerminal {
+import java.util.ArrayList;
 
-    public TerminalUnarmed(DTG53 dtg53){
-        setTerminal(dtg53);
+public class TerminalUnarmed implements DTG53 {
+
+    public TerminalUnarmed(ArrayList<Firefighter> firefighters, String sms){
+        System.out.println("Terminal unarmed");
+        sendSms(firefighters,  sms);
     }
 
-
     @Override
-    public void setTerminal(DTG53 dtg53) {
-        dtg53.setArmed(false);
-        System.out.println("Terminal nieuzbrojony");
+    public void sendSms(ArrayList<Firefighter> firefighters, String sms) {
+            System.out.println("Can't send SMS, terminal unarmed");
     }
 }

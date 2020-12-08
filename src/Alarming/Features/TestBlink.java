@@ -1,7 +1,5 @@
 package Alarming.Features;
 
-import Alarming.DTG53;
-
 public class TestBlink implements DiodesBlinks {
 
     public TestBlink(){

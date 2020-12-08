@@ -1,9 +1,9 @@
 package Alarming;
 
-import Alarming.Features.ArmableTerminal;
+import Alarming.Features.DTG53;
 import Alarming.Features.Buzz;
 import Alarming.Features.DiodesBlinks;
-import Alarming.Features.SendsSMS;
+import Alarming.Features.TerminalUnarmed;
 import Firefighters.Firefighter;
 
 import java.util.ArrayList;
@@ -14,9 +14,6 @@ public class VFDUnit implements IVFDUnit, Observer {
 
     DSP15 dsp15 = new DSP15();
     DSP50 dsp50 = new DSP50();
-    DTG53 dtg53 = new DTG53();
-
-    Siren siren = new Siren();
 
     ArrayList<Firefighter> firefighters = new ArrayList<>();
 
@@ -32,11 +29,9 @@ public class VFDUnit implements IVFDUnit, Observer {
     UnitState unitState;
 
     //Features
-
-    ArmableTerminal armableTerminal;
+    DTG53 DTG53;
     Buzz buzz;
     DiodesBlinks diodesBlinks;
-    SendsSMS sendsSMS;
 
 
     protected VFDUnit() {
@@ -130,24 +125,13 @@ public class VFDUnit implements IVFDUnit, Observer {
         dsp50.respond(districtCommandant, this, responseCode);
     }
 
-    public DTG53 getDTG53() {
-        return this.dtg53;
-    }
 
     public ArrayList<Firefighter> getFirefighters() {
         return firefighters;
     }
 
-    public Siren getSiren() {
-        return siren;
-    }
-
-    public ArmableTerminal getArmableTerminal() {
-        return armableTerminal;
-    }
-
-    public void setArmableTerminal(ArmableTerminal armableTerminal) {
-        this.armableTerminal = armableTerminal;
+    public void setDTG53(DTG53 DTG53) {
+        this.DTG53 = DTG53;
     }
 
     public Buzz getBuzz() {
@@ -166,11 +150,4 @@ public class VFDUnit implements IVFDUnit, Observer {
         this.diodesBlinks = diodesBlinks;
     }
 
-    public SendsSMS getSendsSMS() {
-        return sendsSMS;
-    }
-
-    public void setSendsSMS(SendsSMS sendsSMS) {
-        this.sendsSMS = sendsSMS;
-    }
 }

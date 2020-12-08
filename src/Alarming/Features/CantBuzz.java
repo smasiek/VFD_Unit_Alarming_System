@@ -1,16 +1,13 @@
 package Alarming.Features;
 
-import Alarming.Siren;
-
 public class CantBuzz implements  Buzz{
 
-    public CantBuzz(Siren siren){
-        setAlarmSiren(siren);
+    public CantBuzz(){
+        buzz();
     }
 
     @Override
-    public void setAlarmSiren(Siren siren) {
-        siren.setSiren(false);
-        System.out.println("Siren turned off.");
+    public void buzz() {
+        System.out.println("Buzz turned off.");
     }
 }

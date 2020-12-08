@@ -12,7 +12,6 @@ public class OkState implements UnitState {
 
     public UnitState setState(){
         setTerminal();
-        sendSMS();
         setAlarmSiren();
         diodeState();
         return this;
@@ -20,20 +19,14 @@ public class OkState implements UnitState {
 
     @Override
     public void setTerminal() {
-        vfdUnit.setArmableTerminal(new TerminalUnarmed(vfdUnit.getDTG53()));
-
-    }
-
-    @Override
-    public void sendSMS() {
-        //Poniższa linijka powinna sie nie wykonać poprawnie i zwrócić na sout informacje o błedzie
-        vfdUnit.setSendsSMS(new CantSendSMS(vfdUnit.getDTG53(),vfdUnit.getFirefighters(),"Test wysyłania SMS przez" +
+        vfdUnit.setDTG53(new TerminalUnarmed(vfdUnit.getFirefighters(),"Test wysyłania SMS przez" +
                 " terminal"));
+
     }
 
     @Override
     public void setAlarmSiren() {
-        vfdUnit.setBuzz(new CantBuzz(vfdUnit.getSiren()));
+        vfdUnit.setBuzz(new CantBuzz());
     }
 
     @Override
