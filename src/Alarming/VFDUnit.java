@@ -41,7 +41,7 @@ public class VFDUnit implements IVFDUnit, Observer {
         test = new TestState(this);
 
         //Set default unit state
-        setUnitState(ok.setState());
+        setUnitState(ok);
     }
 
     public void addFirefighter(Firefighter firefighter) {
