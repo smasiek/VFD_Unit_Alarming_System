@@ -6,20 +6,24 @@ public class DistrictCommandantUnit extends VFDUnit implements Subject {
 
     ArrayList<Observer> vfdUnits = new ArrayList<>();
 
-    public DistrictCommandantUnit(String unitName, String testCode, String alarmCode, DistrictCommandantUnit districtCommandantUnit) {
-        super(unitName, testCode, alarmCode, districtCommandantUnit);
+
+    public DistrictCommandantUnit(String unitName, String testCode, String alarmCode) {
+        super();
+        this.unitName = unitName;
+        this.testCode = testCode;
+        this.alarmCode = alarmCode;
     }
 
     @Override
     public void addObserver(Observer observer) {
         vfdUnits.add(observer);
-        System.out.println("Do listy obserwatorow dodano jednostke o nazwie: " + observer.getUnitName());
+        System.out.println("Do listy jednostek komendanta: "+getUnitName()+" dodano jednostke o nazwie: " + observer.getUnitName());
     }
 
     @Override
     public void removeObserver(Observer observer) {
         int index = vfdUnits.indexOf(observer);
-        System.out.println("Usuwam obserwatora o id: " + index + ", nazwa usuwanej jednostki: " + observer.getUnitName() + "....");
+        System.out.println("Usuwam jednostek o id: " + index + ", nazwa usuwanej jednostki: " + observer.getUnitName() + "....");
         vfdUnits.remove(observer);
         System.out.println("Usunięto");
     }
@@ -53,6 +57,6 @@ public class DistrictCommandantUnit extends VFDUnit implements Subject {
     }
 
     public void receiveResponse(String CCIR_CODE){
-        ResponseCode responseCode=dsp50.receiveResponse(CCIR_CODE);
+        ResponseCode responseCode=dsp15.receiveResponse(CCIR_CODE);
     }
 }

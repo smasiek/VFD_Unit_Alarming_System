@@ -1,5 +1,7 @@
 package Alarming;
 
+import Alarming.Features.*;
+
 public class TestState implements UnitState {
 
     VFDUnit vfdUnit;
@@ -8,30 +10,33 @@ public class TestState implements UnitState {
         this.vfdUnit=vfdUnit;
     }
 
+    public UnitState setState(){
+        setTerminal();
+        sendSMS();
+        setAlarmSiren();
+        diodeState();
+        return this;
+    }
+
     @Override
-    public void setTerminal(boolean terminalState) {
-        vfdUnit.getDTG53().setArmed(terminalState);
+    public void setTerminal() {
+        vfdUnit.setArmableTerminal(new TerminalArmed(vfdUnit.getDTG53()));
     }
 
     @Override
     public void sendSMS() {
-        if(vfdUnit.getDTG53().getArmed()) {
-            String sms = "Test wysylania wiadomości SMS z terminala DTG53";
-            vfdUnit.getDTG53().sendSms(vfdUnit.getFirefighters(), sms);
-        }else{
-            System.out.println("Wysłanie wiadomosci niemożliwe. Terminal nieuzbrojony");
-        }
+        vfdUnit.setSendsSMS(new CanSendSMS(vfdUnit.getDTG53(),vfdUnit.getFirefighters(),"Test wysyłania SMS przez" +
+                " terminal"));
     }
 
     @Override
-    public void setAlarmSiren(boolean setSiren) {
-        vfdUnit.getSiren().setSiren(setSiren);
+    public void setAlarmSiren() {
+        vfdUnit.setBuzz(new CanBuzz(vfdUnit.getSiren()));
     }
 
     @Override
     public void diodeState() {
-        System.out.println("|   OK   |  TEST  |  ALARM  |");
-        System.out.println("|--------|--------|---------|");
-        System.out.println("|  [  ]  |  [><]  |   [  ]  |");
+        vfdUnit.setDiodesBlinks(new TestBlink());
+        vfdUnit.getDiodesBlinks().diodeState();
     }
 }

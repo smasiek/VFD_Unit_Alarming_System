@@ -1,5 +1,7 @@
 package Alarming;
 
+import Alarming.Features.*;
+
 public class OkState implements UnitState {
 
     VFDUnit vfdUnit;
@@ -8,26 +10,38 @@ public class OkState implements UnitState {
         this.vfdUnit=vfdUnit;
     }
 
+    public UnitState setState(){
+        setTerminal();
+        sendSMS();
+        setAlarmSiren();
+        diodeState();
+        return this;
+    }
+
     @Override
-    public void setTerminal(boolean terminalState) {
-        System.out.println("Terminal nieuzbrojony, używanie niemożliwe");
+    public void setTerminal() {
+        vfdUnit.setArmableTerminal(new TerminalUnarmed());
+        vfdUnit.getArmableTerminal().setTerminal(vfdUnit.getDTG53());
     }
 
     @Override
     public void sendSMS() {
-        System.out.println("Nie można wysłac SMS, terminal nieuzbrojony.");
+        vfdUnit.setSendsSMS(new CantSendSMS());
+        //Poniższa linijka powinna sie nie wykonać i zwrócić na sout informacje o błedzie
+        vfdUnit.getSendsSMS().sendSMS(vfdUnit.getDTG53(),vfdUnit.getFirefighters(),"Test wysyłania SMS przez" +
+                " terminal");
     }
 
     @Override
-    public void setAlarmSiren(boolean setSiren) {
-        System.out.println("Syrena nieuzbrojona, nie mozna zmienic stanu");
+    public void setAlarmSiren() {
+        vfdUnit.setBuzz(new CantBuzz());
+        vfdUnit.getBuzz().setAlarmSiren(vfdUnit.getSiren());
+        //System.out.println("Syrena nieuzbrojona, nie mozna zmienic stanu");
     }
 
     @Override
     public void diodeState() {
-        System.out.println("|   OK   |  TEST  |  ALARM  |");
-        System.out.println("|--------|--------|---------|");
-        System.out.println("|  [><]  |  [  ]  |   [  ]  |");
-
+        vfdUnit.setDiodesBlinks(new OkBlink());
+        vfdUnit.getDiodesBlinks().diodeState();
     }
 }

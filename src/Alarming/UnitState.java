@@ -1,8 +1,9 @@
 package Alarming;
 
 public interface UnitState {
-    void setTerminal(boolean terminalState);
+    void setTerminal();
     void sendSMS();
-    void setAlarmSiren(boolean setSiren);
+    void setAlarmSiren();
     void diodeState();
+    UnitState setState();
 }

@@ -13,21 +13,24 @@ public class DSP50 {
         return AlarmType.ERROR;
     }
 
-    public ResponseCode receiveResponse(String response){
+    public void respond(Subject commandant, VFDUnit vfdUnit, ResponseCode responseCode){
 
-        String[]splittedAlarm=response.split(";");
+        StringBuilder CCIR_CODE=new StringBuilder();
+        CCIR_CODE.append(vfdUnit.getUnitName());
+        CCIR_CODE.append(";");
 
-        switch (splittedAlarm[1]) {
-            case "TEST_OK" -> {
-                System.out.println("Jednostka " + splittedAlarm[0]+" wykonała test");
-                return ResponseCode.TEST_OK;
+        switch (responseCode) {
+            case TEST_OK -> {
+                CCIR_CODE.append("TEST_OK");
             }
-            case "ALARM_OK" -> {
-                System.out.println("Jednostka " + splittedAlarm[0]+" odebrala alarm i jedzie na akcje");
-                return ResponseCode.ALARM_OK;
+            case ALARM_OK -> {
+                CCIR_CODE.append("ALARM_OK");
+            }
+            case ERROR -> {
+                CCIR_CODE.append("ERROR");
             }
         }
-        System.out.println("Jednostka " + splittedAlarm[0]+" ma niedziałające urządzenie.");
-        return ResponseCode.ERROR;
+
+        commandant.receiveResponse(CCIR_CODE.toString());
     }
 }

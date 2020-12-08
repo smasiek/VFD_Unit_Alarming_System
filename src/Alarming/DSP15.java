@@ -14,28 +14,25 @@ public class DSP15 {
                 CCIR_CODE.append("ALARM");
             }
         }
-
         vfdUnit.alarm(CCIR_CODE.toString());
     }
 
-    public void respond(Subject vfdUnit, ResponseCode responseCode){
-        //TODO JEDNAK DAC TO DO DSP50 bo to dsp50 odpowiada za wyslanie sygnalu zwrotnego jesli uda sie uzbroic terminale i wlaczyc syrene
-        StringBuilder CCIR_CODE=new StringBuilder();
-        CCIR_CODE.append(vfdUnit.getUnitName());
-        CCIR_CODE.append(";");
 
-        switch (responseCode) {
-            case TEST_OK -> {
-                CCIR_CODE.append("TEST_OK");
+    public ResponseCode receiveResponse(String response){
+
+        String[]splittedAlarm=response.split(";");
+
+        switch (splittedAlarm[1]) {
+            case "TEST_OK" -> {
+                System.out.println("Jednostka " + splittedAlarm[0]+" wykonała test");
+                return ResponseCode.TEST_OK;
             }
-            case ALARM_OK -> {
-                CCIR_CODE.append("ALARM_OK");
-            }
-            case ERROR -> {
-                CCIR_CODE.append("ERROR");
+            case "ALARM_OK" -> {
+                System.out.println("Jednostka " + splittedAlarm[0]+" odebrala alarm i jedzie na akcje");
+                return ResponseCode.ALARM_OK;
             }
         }
-
-        vfdUnit.receiveResponse(CCIR_CODE.toString());
+        System.out.println("Jednostka " + splittedAlarm[0]+" ma niedziałające urządzenie.");
+        return ResponseCode.ERROR;
     }
 }

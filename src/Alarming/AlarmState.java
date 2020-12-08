@@ -1,5 +1,10 @@
 package Alarming;
 
+import Alarming.Features.AlarmBlink;
+import Alarming.Features.CanBuzz;
+import Alarming.Features.CanSendSMS;
+import Alarming.Features.TerminalArmed;
+
 public class AlarmState implements UnitState {
 
     VFDUnit vfdUnit;
@@ -8,30 +13,32 @@ public class AlarmState implements UnitState {
         this.vfdUnit=vfdUnit;
     }
 
+    public UnitState setState(){
+        setTerminal();
+        sendSMS();
+        setAlarmSiren();
+        diodeState();
+        return this;
+    }
+
     @Override
-    public void setTerminal(boolean terminalState) {
-        vfdUnit.getDTG53().setArmed(terminalState);
+    public void setTerminal() {
+        vfdUnit.setArmableTerminal(new TerminalArmed(vfdUnit.getDTG53()));
     }
 
     @Override
     public void sendSMS() {
-        if(vfdUnit.getDTG53().getArmed()) {
-            String sms = "Alarm pożarowy! Przygotuj się do akcji!";
-            vfdUnit.getDTG53().sendSms(vfdUnit.getFirefighters(), sms);
-        }else{
-            System.out.println("Wysłanie wiadomosci niemożliwe. Terminal nieuzbrojony");
-        }
+        vfdUnit.setSendsSMS(new CanSendSMS(vfdUnit.getDTG53(),vfdUnit.getFirefighters(),"Alarm pożarniczy!" +
+                " Przygotuj się do akcji!"));
     }
 
     @Override
-    public void setAlarmSiren(boolean setSiren) {
-        vfdUnit.getSiren().setSiren(setSiren);
+    public void setAlarmSiren() {
+        vfdUnit.setBuzz(new CanBuzz(vfdUnit.getSiren()));
     }
 
     @Override
     public void diodeState() {
-        System.out.println("|   OK   |  TEST  |  ALARM  |");
-        System.out.println("|--------|--------|---------|");
-        System.out.println("|  [  ]  |  [  ]  |   [><]  |");
+        vfdUnit.setDiodesBlinks(new AlarmBlink());
     }
 }

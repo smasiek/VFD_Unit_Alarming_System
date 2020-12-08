@@ -37,7 +37,7 @@ public class Firefighter implements IFirefighter {
 
     @Override
     public void sendSms(String content) {
-        System.out.println("Wysyłam SMS do"+this.name+" "+this.surname+": "+content);
+        System.out.println("Wysyłam SMS do strażaka "+this.name+" "+this.surname+": "+content);
     }
     
 }
