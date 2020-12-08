@@ -2,35 +2,33 @@ package Alarming;
 
 import java.util.ArrayList;
 
-public class DistrictCommandantUnit extends VFDUnit implements Subject {
+public class DistrictCommandantUnit implements Subject {
 
     ArrayList<Observer> vfdUnits = new ArrayList<>();
+    DSP15 dsp15 = new DSP15();
+    String unitName;
 
-
-    public DistrictCommandantUnit(String unitName, String testCode, String alarmCode) {
-        super();
+    public DistrictCommandantUnit(String unitName) {
         this.unitName = unitName;
-        this.testCode = testCode;
-        this.alarmCode = alarmCode;
     }
 
     @Override
     public void addObserver(Observer observer) {
         vfdUnits.add(observer);
-        System.out.println("Do listy jednostek komendanta: "+getUnitName()+" dodano jednostke o nazwie: " + observer.getUnitName());
+        System.out.println("Commandant: "+getUnitName()+" has another unit called: " + observer.getUnitName());
     }
 
     @Override
     public void removeObserver(Observer observer) {
         int index = vfdUnits.indexOf(observer);
-        System.out.println("Usuwam jednostek o id: " + index + ", nazwa usuwanej jednostki: " + observer.getUnitName() + "....");
+        System.out.println("Deleting unit with id: " + index + ", unit name: " + observer.getUnitName() + "....");
         vfdUnits.remove(observer);
-        System.out.println("Usunięto");
+        System.out.println("Deleted");
     }
 
     @Override
-    public ResponseCode notify(String CCIR_CODE) {
-        return null;
+    public String getUnitName() {
+        return unitName;
     }
 
 

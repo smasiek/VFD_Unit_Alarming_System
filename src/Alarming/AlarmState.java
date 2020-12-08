@@ -21,8 +21,8 @@ public class AlarmState implements UnitState {
 
     @Override
     public void setTerminal() {
-        vfdUnit.setDTG53(new TerminalArmed(vfdUnit.getFirefighters(),"Alarm pożarniczy!" +
-                " Przygotuj się do akcji!"));
+        vfdUnit.setDTG53(new TerminalArmed(vfdUnit.getFirefighters(),"Alarm!" +
+                " Prepare yourself for action!"));
     }
 
     @Override

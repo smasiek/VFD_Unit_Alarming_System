@@ -1,18 +1,15 @@
 package lab5;
 
-import Alarming.AlarmType;
-import Alarming.DistrictCommandantUnit;
-import Alarming.VFDUnit;
+import Alarming.*;
 import Firefighters.Firefighter;
 
 public class Lab5 {
 
     public static void main(String[] args) {
-        // TODO code application logic here
+        Subject districtCommandantUnit=new DistrictCommandantUnit("komendant");
 
-        DistrictCommandantUnit districtCommandantUnit=new DistrictCommandantUnit("komendant","1","1");
-
-        VFDUnit unit1=new VFDUnit("unit1","2","2",districtCommandantUnit);
+        VFDUnit unit1=new VFDUnit("unit1","TEST","Alarm");
+        unit1.observe(districtCommandantUnit);
 
         Firefighter firefighter1=new Firefighter("jan","kowal","1");
         Firefighter firefighter2=new Firefighter("jane","kowals","12");
@@ -22,7 +19,8 @@ public class Lab5 {
         unit1.addFirefighter(firefighter2);
         unit1.addFirefighter(firefighter3);
 
-        VFDUnit unit2=new VFDUnit("unit2","3","3",districtCommandantUnit);
+        VFDUnit unit2=new VFDUnit("unit2","TEScik","Aaalaaarm");
+        unit2.observe(districtCommandantUnit);
 
         Firefighter firefighter4=new Firefighter("ad","now","1");
         Firefighter firefighter5=new Firefighter("ada","nowa","12");
@@ -33,7 +31,15 @@ public class Lab5 {
         unit2.addFirefighter(firefighter6);
 
         districtCommandantUnit.notifyUnit("unit1", AlarmType.TEST);
+        //Zmiana stanu jako oddzielna metoda bo odpowiedz Response codem wcale nie oznacza zakończenia przygotowań
+        //do wyruszenia z akcją ratunkową i wyłączeniem alarmu.
+        unit1.setOkState();
+
         districtCommandantUnit.notifyEveryUnit(AlarmType.ALARM);
+        unit1.setOkState();
+        unit2.setOkState();
+
+        unit1.stopObserving();
 
 
 

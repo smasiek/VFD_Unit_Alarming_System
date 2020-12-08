@@ -19,9 +19,7 @@ public class OkState implements UnitState {
 
     @Override
     public void setTerminal() {
-        vfdUnit.setDTG53(new TerminalUnarmed(vfdUnit.getFirefighters(),"Test wysyłania SMS przez" +
-                " terminal"));
-
+        vfdUnit.setDTG53(new TerminalUnarmed(vfdUnit.getFirefighters(),"This text shouldn't be sent" ));
     }
 
     @Override

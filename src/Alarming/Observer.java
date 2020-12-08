@@ -1,8 +1,10 @@
 package Alarming;
 
 public interface Observer {
-    //TODO wymusic implementacje metod do zmiany stanu i strategii
     String getUnitName();
-
+    String getTestCode();
+    String getAlarmCode();
+    void observe(Subject districtCommandantUnit);
+    void stopObserving();
     void alarm(String toString);
 }

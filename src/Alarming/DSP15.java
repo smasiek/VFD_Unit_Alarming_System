@@ -8,10 +8,10 @@ public class DSP15 {
 
         switch (alarmType) {
             case TEST -> {
-                CCIR_CODE.append("TEST");
+                CCIR_CODE.append(vfdUnit.getTestCode());
             }
             case ALARM -> {
-                CCIR_CODE.append("ALARM");
+                CCIR_CODE.append(vfdUnit.getAlarmCode());
             }
         }
         vfdUnit.alarm(CCIR_CODE.toString());
@@ -24,15 +24,15 @@ public class DSP15 {
 
         switch (splittedAlarm[1]) {
             case "TEST_OK" -> {
-                System.out.println("Jednostka " + splittedAlarm[0]+" wykonała test");
+                System.out.println("Unit " + splittedAlarm[0]+" received TEST SIGNAL properly");
                 return ResponseCode.TEST_OK;
             }
             case "ALARM_OK" -> {
-                System.out.println("Jednostka " + splittedAlarm[0]+" odebrala alarm i jedzie na akcje");
+                System.out.println("Unit " + splittedAlarm[0]+" received ALARM SIGNAL properly");
                 return ResponseCode.ALARM_OK;
             }
         }
-        System.out.println("Jednostka " + splittedAlarm[0]+" ma niedziałające urządzenie.");
+        System.out.println("Unit " + splittedAlarm[0]+" has broken terminal.");
         return ResponseCode.ERROR;
     }
 }

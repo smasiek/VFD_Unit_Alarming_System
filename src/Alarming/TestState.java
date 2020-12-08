@@ -19,7 +19,7 @@ public class TestState implements UnitState {
 
     @Override
     public void setTerminal() {
-        vfdUnit.setDTG53(new TerminalArmed(vfdUnit.getFirefighters(),"Test wysyłania SMS przez" +
+        vfdUnit.setDTG53(new TerminalArmed(vfdUnit.getFirefighters(),"Test of sending SMS by " +
                 " terminal"));
     }
 
