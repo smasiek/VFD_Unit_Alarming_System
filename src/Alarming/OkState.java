@@ -20,28 +20,24 @@ public class OkState implements UnitState {
 
     @Override
     public void setTerminal() {
-        vfdUnit.setArmableTerminal(new TerminalUnarmed());
-        vfdUnit.getArmableTerminal().setTerminal(vfdUnit.getDTG53());
+        vfdUnit.setArmableTerminal(new TerminalUnarmed(vfdUnit.getDTG53()));
+
     }
 
     @Override
     public void sendSMS() {
-        vfdUnit.setSendsSMS(new CantSendSMS());
-        //Poniższa linijka powinna sie nie wykonać i zwrócić na sout informacje o błedzie
-        vfdUnit.getSendsSMS().sendSMS(vfdUnit.getDTG53(),vfdUnit.getFirefighters(),"Test wysyłania SMS przez" +
-                " terminal");
+        //Poniższa linijka powinna sie nie wykonać poprawnie i zwrócić na sout informacje o błedzie
+        vfdUnit.setSendsSMS(new CantSendSMS(vfdUnit.getDTG53(),vfdUnit.getFirefighters(),"Test wysyłania SMS przez" +
+                " terminal"));
     }
 
     @Override
     public void setAlarmSiren() {
-        vfdUnit.setBuzz(new CantBuzz());
-        vfdUnit.getBuzz().setAlarmSiren(vfdUnit.getSiren());
-        //System.out.println("Syrena nieuzbrojona, nie mozna zmienic stanu");
+        vfdUnit.setBuzz(new CantBuzz(vfdUnit.getSiren()));
     }
 
     @Override
     public void diodeState() {
         vfdUnit.setDiodesBlinks(new OkBlink());
-        vfdUnit.getDiodesBlinks().diodeState();
     }
 }

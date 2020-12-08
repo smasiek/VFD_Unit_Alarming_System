@@ -37,6 +37,5 @@ public class TestState implements UnitState {
     @Override
     public void diodeState() {
         vfdUnit.setDiodesBlinks(new TestBlink());
-        vfdUnit.getDiodesBlinks().diodeState();
     }
 }
