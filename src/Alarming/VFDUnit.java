@@ -9,27 +9,27 @@ import java.util.ArrayList;
 
 public class VFDUnit implements IVFDUnit, Observer {
 
-    Subject districtCommandant;
+    private Subject districtCommandant;
 
-    DSP50 dsp50 = new DSP50();
+    private DSP50 dsp50 = new DSP50();
 
-    ArrayList<Firefighter> firefighters = new ArrayList<>();
+    private ArrayList<Firefighter> firefighters = new ArrayList<>();
 
-    String unitName;
-    String testCode;
-    String alarmCode;
+    private String unitName;
+    private String testCode;
+    private String alarmCode;
 
     //States
-    UnitState ok;
-    UnitState alarmed;
-    UnitState test;
+    private UnitState ok;
+    private UnitState alarmed;
+    private UnitState test;
 
-    UnitState unitState;
+    private UnitState unitState;
 
     //Features
-    DTG53 DTG53;
-    Buzz buzz;
-    DiodesBlinks diodesBlinks;
+    private DTG53 DTG53;
+    private Buzz buzz;
+    private DiodesBlinks diodesBlinks;
 
     public VFDUnit(String unitName, String testCode, String alarmCode) {
         this.unitName = unitName;
@@ -57,8 +57,8 @@ public class VFDUnit implements IVFDUnit, Observer {
     }
 
     @Override
-    public void alarm(String toString) {
-        AlarmType alarmType = dsp50.receiveAlarm(this, toString);
+    public void alarm(String toSend) {
+        AlarmType alarmType = dsp50.receiveAlarm(this, toSend);
         ResponseCode responseCode = ResponseCode.ERROR;
         try {
 
@@ -105,18 +105,6 @@ public class VFDUnit implements IVFDUnit, Observer {
 
     public String getAlarmCode() {
         return alarmCode;
-    }
-
-    public void setUnitName(String unitName) {
-        this.unitName = unitName;
-    }
-
-    public void setAlarmCode(String alarmCode) {
-        this.alarmCode = alarmCode;
-    }
-
-    public void setTestCode(String testCode) {
-        this.testCode = testCode;
     }
 
     @Override

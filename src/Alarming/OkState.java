@@ -4,7 +4,7 @@ import Alarming.Features.*;
 
 public class OkState implements UnitState {
 
-    VFDUnit vfdUnit;
+    private VFDUnit vfdUnit;
 
     public OkState(VFDUnit vfdUnit){
         this.vfdUnit=vfdUnit;

@@ -4,7 +4,7 @@ import Alarming.Features.*;
 
 public class TestState implements UnitState {
 
-    VFDUnit vfdUnit;
+    private VFDUnit vfdUnit;
 
     public TestState(VFDUnit vfdUnit){
         this.vfdUnit=vfdUnit;

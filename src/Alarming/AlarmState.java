@@ -6,7 +6,7 @@ import Alarming.Features.TerminalArmed;
 
 public class AlarmState implements UnitState {
 
-    VFDUnit vfdUnit;
+    private VFDUnit vfdUnit;
 
     public AlarmState(VFDUnit vfdUnit){
         this.vfdUnit=vfdUnit;

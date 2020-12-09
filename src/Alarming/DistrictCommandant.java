@@ -2,13 +2,13 @@ package Alarming;
 
 import java.util.ArrayList;
 
-public class DistrictCommandantUnit implements Subject {
+public class DistrictCommandant implements Subject {
 
-    ArrayList<Observer> vfdUnits = new ArrayList<>();
-    DSP15 dsp15 = new DSP15();
-    String unitName;
+    private ArrayList<Observer> vfdUnits = new ArrayList<>();
+    private DSP15 dsp15 = new DSP15();
+    private String unitName;
 
-    public DistrictCommandantUnit(String unitName) {
+    public DistrictCommandant(String unitName) {
         this.unitName = unitName;
     }
 
